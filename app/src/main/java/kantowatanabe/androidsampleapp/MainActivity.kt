@@ -3,6 +3,10 @@ package kantowatanabe.androidsampleapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import kantowatanabe.androidsampleapp.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,5 +26,16 @@ class MainActivity : AppCompatActivity() {
         val rw = rm.widthPixels
         val rh = rm.heightPixels
         realMetrics.text = "$rw x $rh"
+
+        val viewModel: MainViewModel by viewModels()
+
+        vmUpdBtn.setOnClickListener {
+            viewModel.count.value = viewModel.count.value!! + 1
+        }
+
+        val observer = Observer<Int> {
+            vmText.text = it.toString()
+        }
+        viewModel.count.observe(this, observer)
     }
 }
