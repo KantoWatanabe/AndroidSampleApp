@@ -9,8 +9,13 @@ class MainViewModel: ViewModel() {
         MutableLiveData<Int>()
     }
 
+    val bindingText: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
     init {
         count.value = 0
+        bindingText.value = "hoge"
     }
 }
 
